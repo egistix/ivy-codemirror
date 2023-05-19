@@ -1,7 +1,7 @@
 import Component from 'ember-component';
 import injectService from 'ember-service/inject';
 import observer from 'ember-metal/observer';
-import { bind, once, scheduleOnce } from 'ember-runloop';
+import { bind, once, scheduleOnce } from '@ember/runloop';
 
 export default Component.extend({
   tagName: 'textarea',
@@ -47,13 +47,7 @@ export default Component.extend({
   },
 
   sendValueUpdatedAction(...args) {
-    const valueUpdated = this.get('valueUpdated');
-    if (typeof valueUpdated === 'function') {
-      valueUpdated(...args);
-    } else if (valueUpdated) {
-      // DEPRECATED: sendAction is deprecated as of Ember 3.4
-      this.sendAction('valueUpdated', ...args); // eslint-disable-line ember/closure-actions
-    }  
+    this.sendAction('valueUpdated', ...args);
   },
 
   toggleVisibility() {
